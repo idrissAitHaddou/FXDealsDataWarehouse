@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/fx_deals_warehouse}
+    username: ${SPRING_DATASOURCE_USERNAME:fx-username}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.progressoft.fxdeals: INFO
+    org.hibernate.SQL: DEBUG
